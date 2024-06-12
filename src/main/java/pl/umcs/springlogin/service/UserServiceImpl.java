@@ -2,12 +2,15 @@ package pl.umcs.springlogin.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.umcs.springlogin.data.Cart;
 import pl.umcs.springlogin.data.Role;
 import pl.umcs.springlogin.data.User;
-import pl.umcs.springlogin.data.interfaces.RoleRepository;
-import pl.umcs.springlogin.data.interfaces.UserRepositoryCustom;
+import pl.umcs.springlogin.repository.RoleRepository;
+import pl.umcs.springlogin.repository.UserRepositoryCustom;
 import pl.umcs.springlogin.data.interfaces.UserService;
 
 import java.util.Optional;
@@ -37,6 +40,8 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+        user.setCart(new Cart());
+
         Role userRole = roleRepository.findByName("USER").orElseGet(null);
         if(userRole != null) {
             user.getRoles().add(userRole);
@@ -48,5 +53,14 @@ public class UserServiceImpl implements UserService {
 
         userRepositoryCustom.save(user);
         return "success";
+    }
+
+    @Transactional
+    public User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username = ((UserDetails) principal).getUsername();
+
+        return userRepositoryCustom.findByUsername(username).orElse(null);
     }
 }

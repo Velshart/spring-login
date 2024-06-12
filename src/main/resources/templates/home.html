@@ -10,7 +10,11 @@
         <div th:text="${book.author}"></div>
         <div th:text="${'Cena: ' + book.price + ' zl'}"></div>
         <div th:text="${'Ilość: ' + book.quantity}"></div>
+        <a th:href="@{/cart/add/{bookId}/1(bookId=${book.id})}">Dodaj do koszyka</a>
     </div>
+</div>
+<div>
+    <a th:href="@{/cart}"><br>Przejdź do koszyka</a>
 </div>
 </body>
 </html>

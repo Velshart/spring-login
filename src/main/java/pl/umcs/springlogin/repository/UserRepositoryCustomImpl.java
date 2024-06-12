@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 import pl.umcs.springlogin.data.User;
-import pl.umcs.springlogin.data.interfaces.UserRepositoryCustom;
 
 import java.util.List;
 import java.util.Optional;

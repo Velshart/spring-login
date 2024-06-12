@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.umcs.springlogin.data.Role;
 import pl.umcs.springlogin.data.User;
-import pl.umcs.springlogin.data.interfaces.UserRepositoryCustom;
+import pl.umcs.springlogin.repository.UserRepositoryCustom;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
